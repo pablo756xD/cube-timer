@@ -60,6 +60,7 @@ void scramble(void){
   printf("\n");
 }
 
+
 float timer(){
   float time = 0.00;
   printf("%s", "type Enter Key to start the timer...");
@@ -72,22 +73,42 @@ float timer(){
     fflush(stdout);
   }
   printf("\n");
+  printf("solved in... %.2f\n", time);
+  
   return time;
 }
 
-void loop(float time){
+void append(float arr[5], int *num, float time){
+  if(*num > 4){
+    *num = 0;
+  }else{
+    arr[*num] = time;
+  }
+  (*num)++;
+
+
+}
+
+
+void loop(float time, float arr[5], int *num){
   while(1){
     scramble();
     time = timer();
+    append(arr, num, time);
   }
 
 }
 
+
 int main(){
-  float currentTime = 0;
+  float average_of_five[5] = {0.00};
+  int count = 0;
+  int *count_ptr = &count;
+  float current_time = 0;
   srand(time(NULL));
-  loop(currentTime);
-  
+  loop(current_time, average_of_five, count_ptr);
+   
+
   return 0;
 
 }
