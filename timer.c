@@ -98,6 +98,29 @@ void last_solves(float *avg5){
 
 }
 
+void sort(float *avg5){
+  int size = 5;	
+  for(int i = 0;i < size - 1; i++){
+    for(int j = 0;j < size - i - 1;j++){
+      if(avg5[j] > avg5[j+1]){
+        float temp = avg5[j];
+	avg5[j] = avg5[j+1];
+	avg5[j+1] = temp;
+      }
+    }
+  }
+
+}
+
+void foreach(float *avg5){ 
+ printf("%s","Debug sort function:  ");
+  for(int i = 0;i < 5;i++){
+    printf("%.2f  ", avg5[i]);
+  }
+
+  printf("\n");
+}
+
 void loop(float *avg5){
   int counter = 0;	
   while(1){
@@ -105,6 +128,8 @@ void loop(float *avg5){
     float current_time = timer();
     append(current_time, avg5,&counter);
     last_solves(avg5);
+    sort(avg5);
+    foreach(avg5);
   }
 
 }
