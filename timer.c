@@ -88,8 +88,12 @@ void append(float time, float *arr, int *num){
 
 }
 
-void push(float time, float *arr){
+void push(float time, float *arr, int *num){
   arr[0] = time;
+  if(*num < 5){
+    (*num)++;
+  }
+
 }
 
 void last_solves(float *avg5){
@@ -113,7 +117,6 @@ void sort(float *avg5){
       }
     }
   }
-
 }
 
 void foreach(float *avg5){ 
@@ -125,16 +128,26 @@ void foreach(float *avg5){
   printf("\n");
 }
 
+void average(float *arr, int *num){
+  // for five
+  if(*num > 4){
+    float total = (arr[1] + arr[2] + arr[3]) / 3.0;
+    printf("AVG 5:   %.2f \n", total);
+  }
+
+}
+
 void loop(float *avg5, float *savg5){
   int counter = 0;	 
+  int counter2 = 0;
   while(1){
     scramble();
     float current_time = timer();
     append(current_time, avg5,&counter);
-    push(current_time, savg5);
+    push(current_time, savg5,&counter2);
     last_solves(avg5);
     sort(savg5);
-    foreach(savg5);
+    average(savg5, &counter2);
   }
 
 }
