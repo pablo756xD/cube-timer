@@ -82,10 +82,14 @@ float timer(){
 void append(float time, float *arr, int *num){
   arr[*num] = time;
   (*num)++;
-  if(*num == 5){
+  if(*num > 4){
     *num = 0;   
   }
 
+}
+
+void push(float time, float *arr){
+  arr[0] = time;
 }
 
 void last_solves(float *avg5){
@@ -121,15 +125,16 @@ void foreach(float *avg5){
   printf("\n");
 }
 
-void loop(float *avg5){
-  int counter = 0;	
+void loop(float *avg5, float *savg5){
+  int counter = 0;	 
   while(1){
     scramble();
     float current_time = timer();
     append(current_time, avg5,&counter);
+    push(current_time, savg5);
     last_solves(avg5);
-    sort(avg5);
-    foreach(avg5);
+    sort(savg5);
+    foreach(savg5);
   }
 
 }
@@ -137,8 +142,9 @@ void loop(float *avg5){
 
 int main(){
   float average_of_five[5] = {0};
+  float sorted_of_five[5] = {0};
   srand(time(NULL));
-  loop(average_of_five);
+  loop(average_of_five,sorted_of_five);
   return 0;
 
 }
