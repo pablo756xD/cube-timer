@@ -23,3 +23,5 @@ Then run using:
 install glibc with
 
 sudo apt install libc6-dev
+
+**this proyect is undone yet, you can expect bugs that i'm trying to solve Lol**
