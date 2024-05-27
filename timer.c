@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <termios.h>
 #include <fcntl.h>
+#include <string.h>
 
 #define MAX 6
 #define MAXM 3
@@ -94,6 +95,9 @@ void print_array(float *arr, int size, char message[]){
   printf("\n");
 }
 
+void copy_array(float *src, float *dest, int size){
+  memcpy(dest,src,5*sizeof(float));
+}
 void sort(float *avg5){
   int size = 5;	
   for(int i = 0;i < size; i++){
@@ -116,7 +120,7 @@ void average(float *arr, int *num){
 
 }
 
-void loop(float *avg5){
+void loop(float *avg5, float *savg5){
   int counter = 0;	 
   int counter2 = 0;
   int counter3 = 0;
@@ -125,6 +129,8 @@ void loop(float *avg5){
     float current_time = timer();
     append(current_time, avg5,&counter, SIZE1);
     print_array(avg5,SIZE1,"last solves");
+    copy_array(avg5,savg5, SIZE1);
+    print_array(savg5, SIZE1, "Debug copy function");
   }
 
 }
@@ -133,7 +139,7 @@ int main(){
   float average_of_five[5] = {0};
   float sorted_of_five[5] = {0};
   srand(time(NULL));
-  loop(average_of_five);
+  loop(average_of_five, sorted_of_five);
   return 0;
 
 }
