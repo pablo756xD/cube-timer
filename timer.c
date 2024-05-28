@@ -78,12 +78,20 @@ float timer(){
   return time;
 }
 
-void append(float time, float *arr, int *num, int size, int *num2){
+/*void append(float time, float *arr, int *num, int size, int *num2){
   arr[*num] = time;
   (*num)++;
   if(*num > size -1){
     *num = 0;   
   }
+  (*num2)++;
+}*/
+
+void shift_array(float *arr, int size, float time, int *num2){
+  for(int i = size - 1; i > 0;i--){
+    arr[i] = arr[i -1];
+  }
+  arr[0] = time;
   (*num2)++;
 }
 
@@ -127,12 +135,10 @@ void loop(float *avg5, float *savg5){
   while(1){
     scramble();
     float current_time = timer();
-    append(current_time, avg5,&counter, SIZE1, &counter2);
+    shift_array(avg5, SIZE1, current_time, &counter2);
     print_array(avg5,SIZE1,"last solves: ");
     copy_array(avg5,savg5, SIZE1);
-    print_array(savg5, SIZE1, "Debug copy function: ");
     sort(savg5);
-    print_array(savg5,SIZE1, "Debug sort function: ");
     average(savg5, &counter2);
   }
 
