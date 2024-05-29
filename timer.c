@@ -106,8 +106,7 @@ void print_array(float *arr, int size, char message[]){
 void copy_array(float *src, float *dest, int size){
   memcpy(dest,src,5*sizeof(float));
 }
-void sort(float *avg5){
-  int size = 5;	
+void sort(float *avg5, int size){	
   for(int i = 0;i < size; i++){
     for(int j = 0;j < size - i - 1;j++){
       if(avg5[j] > avg5[j+1]){
@@ -121,10 +120,11 @@ void sort(float *avg5){
 
 void average(float *arr, int *num, int size){
   float total = 0;
-  for(int i = 1; i < size - 2;i++){ 
+  for(int i = 1; i < size - 1;i++){ 
     total += arr[i];
-  } 
-  if (*num > 4){
+  }
+  total /=  size - 2;
+  if (*num > size - 1){
     printf("AVG %d: %.2f\n",size,total);
   }
 }
@@ -137,10 +137,13 @@ void loop(float *avg5, float *savg5, float *avg12, float *savg12){
     shift_array(avg5, SIZE1, current_time, &counter);
     shift_array(avg12, SIZE2, current_time, &counter2);
     print_array(avg5,SIZE1,"last solves: ");
+    print_array(avg12, SIZE2, "Debug avg 12");
     copy_array(avg5,savg5, SIZE1);
-    sort(savg5);
-    sort(avg12);
+    copy_array(avg12,savg12, SIZE2);
+    sort(savg5, SIZE1);
+    sort(savg12,SIZE2);
     average(savg5, &counter, SIZE1);
+    average(savg12, &counter2, SIZE2);
   }
 
 }
