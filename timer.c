@@ -119,27 +119,28 @@ void sort(float *avg5){
   }
 }
 
-void average(float *arr, int *num){
-  // for five
-  if(*num > 4){
-    float total = (arr[1] + arr[2] + arr[3]) / 3.0;
-    printf("AVG 5:   %.2f \n", total);
+void average(float *arr, int *num, int size){
+  float total = 0;
+  for(int i = 1; i < size - 2;i++){ 
+    total += arr[i];
+  } 
+  if (*num > 4){
+    printf("AVG %d: %.2f\n",size,total);
   }
-
 }
-
-void loop(float *avg5, float *savg5){
+void loop(float *avg5, float *savg5, float *avg12, float *savg12){
   int counter = 0;	 
   int counter2 = 0;
-  int counter3 = 0;
   while(1){
     scramble();
     float current_time = timer();
-    shift_array(avg5, SIZE1, current_time, &counter2);
+    shift_array(avg5, SIZE1, current_time, &counter);
+    shift_array(avg12, SIZE2, current_time, &counter2);
     print_array(avg5,SIZE1,"last solves: ");
     copy_array(avg5,savg5, SIZE1);
     sort(savg5);
-    average(savg5, &counter2);
+    sort(avg12);
+    average(savg5, &counter, SIZE1);
   }
 
 }
@@ -147,8 +148,10 @@ void loop(float *avg5, float *savg5){
 int main(){
   float average_of_five[5] = {0};
   float sorted_of_five[5] = {0};
+  float average_of_twelve[12] = {0};
+  float sorted_of_twelve[12] = {0};
   srand(time(NULL));
-  loop(average_of_five, sorted_of_five);
+  loop(average_of_five, sorted_of_five,average_of_twelve,sorted_of_twelve);
   return 0;
 
 }
